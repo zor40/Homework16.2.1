@@ -1,19 +1,25 @@
 package ru.hogwarts.school.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "faculties")
 public class Faculty {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
+    @Column(name = "name")
     private String name;
 
+    @Column(name = "color")
     private String color;
 
     public Faculty() {
@@ -25,7 +31,7 @@ public class Faculty {
         this.color = color;
     }
 
-    public Long getId() {      // ← ДОБАВЬ ЭТОТ МЕТОД
+    public Long getId() {
         return id;
     }
 
