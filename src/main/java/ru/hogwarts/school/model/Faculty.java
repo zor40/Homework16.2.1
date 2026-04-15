@@ -5,7 +5,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+
+import java.util.Collection;
 
 @Entity
 @Table(name = "faculties")
@@ -21,6 +24,9 @@ public class Faculty {
 
     @Column(name = "color")
     private String color;
+
+    @OneToMany(mappedBy = "faculty")
+    private Collection<Student> students;
 
     public Faculty() {
     }
@@ -53,5 +59,13 @@ public class Faculty {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public Collection<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(Collection<Student> students) {
+        this.students = students;
     }
 }
