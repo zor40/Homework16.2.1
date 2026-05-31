@@ -1,5 +1,8 @@
 package ru.hogwarts.school.controller;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +23,15 @@ public class AvatarController {
         this.avatarService = avatarService;
     }
 
+    @GetMapping
+    public Page<Avatar> getAllAvatars(
+            @RequestParam int page,
+            @RequestParam int size
+    ) {
+        Pageable pageable = PageRequest.of(page, size);
+        return avatarService.getAllAvatars(pageable);
+    }
+
     @PostMapping(value = "/{studentId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public Long uploadAvatar(@PathVariable Long studentId,
                              @RequestParam("file") MultipartFile file) throws IOException {
@@ -37,7 +49,7 @@ public class AvatarController {
                 .body(avatar.getData());
     }
 
-    @GetMapping("/{studentId}/from-file")
+    @GetMapping("/{studentId}/file")
     public ResponseEntity<byte[]> downloadAvatarFromFile(@PathVariable Long studentId) throws IOException {
         Avatar avatar = avatarService.getAvatarFromDb(studentId);
         byte[] data = avatarService.getAvatarFromFile(studentId);
