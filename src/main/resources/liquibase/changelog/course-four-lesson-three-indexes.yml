@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1-create-index-student-name
+      author: student
+      changes:
+        - sql:
+            sql: CREATE INDEX idx_student_name ON student (name);
+
+  - changeSet:
+      id: 2-create-index-faculty-name-color
+      author: student
+      changes:
+        - sql:
+            sql: CREATE INDEX idx_faculty_name_color ON faculty (name, color);
