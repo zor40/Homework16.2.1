@@ -22,14 +22,29 @@ public class StudentService {
         this.studentRepository = studentRepository;
     }
 
+    // Шаг 1: имена студентов, начинающиеся с "A", в верхнем регистре, отсортированные
+    public List<String> getNamesStartingWithA() {
+        logger.info("Was invoked method for get names starting with A");
+        return studentRepository.findAll().stream()
+                .map(Student::getName)
+                .map(String::toUpperCase)
+                .filter(name -> name.startsWith("A"))
+                .sorted()
+                .toList();
+    }
+
+    // Шаг 2: средний возраст всех студентов
+    public double getAverageAge() {
+        logger.info("Was invoked method for get average age");
+        return studentRepository.findAll().stream()
+                .mapToInt(Student::getAge)
+                .average()
+                .orElse(0);
+    }
+
     public long getCountOfStudents() {
         logger.info("Was invoked method for get count of students");
         return studentRepository.getCountOfStudents();
-    }
-
-    public Double getAverageAge() {
-        logger.info("Was invoked method for get average age");
-        return studentRepository.getAverageAge();
     }
 
     public List<Student> getLastFiveStudents() {
